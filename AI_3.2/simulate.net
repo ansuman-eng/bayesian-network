@@ -1,0 +1,101 @@
+net
+{
+	rcenginegenerator1317510038576835557L = "edu.ucla.belief.inference.RCSettings@39f4e4c5";
+}
+
+node Fine_Chit
+{
+	states = ("True" "False" );
+	position = (484 -365);
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	label = "Fine_Chit";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node Personnel
+{
+	states = ("True" "False" );
+	position = (179 -108);
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	label = "Personnel";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node Speed
+{
+	states = ("True" "False" );
+	position = (866 -100);
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	label = "Speed";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node See_Personnel
+{
+	states = ("True" "False" );
+	position = (445 -142);
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	label = "See_Personnel";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node Slow_Traffic
+{
+	states = ("True" "False" );
+	position = (180 -466);
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	label = "Slow_Traffic";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+node OnTime
+{
+	states = ("True" "False" );
+	position = (508 -598);
+	diagnosistype = "AUXILIARY";
+	ismapvariable = "false";
+	label = "OnTime";
+	DSLxEXTRA_DEFINITIONxDIAGNOSIS_TYPE = "AUXILIARY";
+	excludepolicy = "include whole CPT";
+}
+potential ( Fine_Chit | Personnel Speed )
+{
+	data = (((	0.5	0.5	)
+		(	0.0	1.0	))
+		((	0.0	1.0	)
+		(	0.0	1.0	)));
+}
+potential ( Personnel | )
+{
+	data = (	0.1	0.9	);
+}
+potential ( Speed | )
+{
+	data = (	0.5	0.5	);
+}
+potential ( See_Personnel | Personnel )
+{
+	data = ((	0.6	0.4	)
+		(	0.0	1.0	));
+}
+potential ( Slow_Traffic | Personnel )
+{
+	data = ((	0.8	0.2	)
+		(	0.3	0.7	));
+}
+potential ( OnTime | Fine_Chit Slow_Traffic Speed )
+{
+	data = ((((	0.0	1.0	)
+		(	0.0	1.0	))
+		((	0.0	1.0	)
+		(	0.0	1.0	)))
+		(((	0.9	0.1	)
+		(	0.1	0.9	))
+		((	0.9	0.1	)
+		(	0.3	0.7	))));
+}

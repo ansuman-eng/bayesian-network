@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!--
+  DTD for a BatchTool query description file.
+  Keith Cascio
+  04/07/03
+-->
+
+<!ELEMENT batch (query+)>
+
+<!ELEMENT query ( map | mpe | probability | exactmap | sensitivity | timing | error )+ >
+
+<!ATTLIST query
+    network   CDATA #REQUIRED
+>
+
+<!ELEMENT map ( id | evidence | result | error )* >
+
+<!ATTLIST map
+    search		( HILL | TABOO )				#IMPLIED
+    initialization	( RANDOM | MPE | MAX_LIKELIHOODS | SEQUENTIAL )	#IMPLIED
+    maxsteps		CDATA						#IMPLIED
+    prune		( true | false )				#IMPLIED
+>
+
+<!ELEMENT exactmap ( id | evidence | result | error )* >
+
+<!ATTLIST exactmap
+    timelimit		CDATA			#IMPLIED
+    widthbarrier	CDATA			#IMPLIED
+    slop		CDATA			#IMPLIED
+>
+
+<!ELEMENT mpe ( evidence | result | error )* >
+
+<!ELEMENT probability ( id | evidence | result | error )* >
+
+<!ATTLIST probability
+    algorithm		( jointree | recursiveconditioning | shenoy-shafer | hugin | zc-hugin )	#IMPLIED
+    cachefactor		CDATA					#IMPLIED
+    noposteriors	( true | false )			#IMPLIED
+    prune		( true | false )			#IMPLIED
+>
+
+<!ELEMENT sensitivity ( event | evidence | result | error )* >
+
+<!ATTLIST sensitivity
+    algorithm		( shenoy-shafer | zc-hugin )	#IMPLIED
+    cachefactor		CDATA				#IMPLIED
+    inequality		( EQUALS | GTE | LTE )		#IMPLIED
+    twoeventop		( DIFFERENCE | RATIO )		#IMPLIED
+    constant		CDATA				#IMPLIED
+    oneparam		( true | false )		#IMPLIED
+    onecpt		( true | false )		#IMPLIED
+>
+
+<!ELEMENT evidence (id,state)>
+
+<!ELEMENT id (#PCDATA)>
+
+<!ELEMENT state (#PCDATA)>
+
+<!ELEMENT result ( inst | probabilityOfEvidence | posteriors | score | exact | suggestion | satisfied | unsatisfiable | timing | sloppyresult | error )* >
+
+<!ATTLIST result
+    date   CDATA #REQUIRED
+    cpuMilliseconds		CDATA	#IMPLIED
+    systemElapsedMilliseconds	CDATA	#IMPLIED
+>
+
+<!ELEMENT suggestion ( parameter )* >
+
+<!ATTLIST suggestion
+    type		( oneparam | onecpt )	#REQUIRED
+    logoddschange	CDATA			#IMPLIED
+>
+
+<!ELEMENT parameter (prob_of,given) >
+
+<!ATTLIST parameter
+    current		CDATA					#REQUIRED
+    suggested		CDATA					#REQUIRED
+    absolutechange	CDATA					#IMPLIED
+    logoddschange	CDATA					#IMPLIED
+>
+
+<!ELEMENT prob_of (inst) >
+
+<!ELEMENT given (inst)* >
+
+<!ELEMENT inst (id,state)>
+
+<!ELEMENT event (id,state)>
+
+<!ATTLIST event
+	name	CDATA	#IMPLIED
+>
+
+<!ELEMENT error (#PCDATA)>
+
+<!ELEMENT probabilityOfEvidence (#PCDATA)>
+
+<!ATTLIST probabilityOfEvidence
+    cpuMilliseconds		CDATA	#REQUIRED
+    systemElapsedMilliseconds	CDATA	#REQUIRED
+    value			CDATA	#REQUIRED
+>
+
+<!ELEMENT posteriors (variable)* >
+
+<!ATTLIST posteriors
+    cpuMilliseconds		CDATA	#REQUIRED
+    systemElapsedMilliseconds	CDATA	#REQUIRED
+>
+
+<!ELEMENT variable ( posterior+ ) >
+
+<!ATTLIST variable
+    id	CDATA	#REQUIRED
+>
+
+<!ELEMENT posterior (#PCDATA) >
+
+<!ATTLIST posterior
+    state	CDATA	#REQUIRED
+    value	CDATA	#REQUIRED
+>
+
+<!ELEMENT value (#PCDATA)>
+
+<!ELEMENT score (#PCDATA)>
+
+<!ELEMENT exact (#PCDATA)>
+
+<!ELEMENT satisfied (#PCDATA)>
+
+<!ELEMENT unsatisfiable (#PCDATA)>
+
+<!ELEMENT timing (#PCDATA) >
+
+<!ATTLIST timing
+    name			CDATA	#REQUIRED
+    systemElapsedMilliseconds	CDATA	#IMPLIED
+    cpuMilliseconds		CDATA	#IMPLIED
+>
+
+<!ELEMENT sloppyresult ( inst+ ) >
+
+<!ATTLIST sloppyresult
+    score		CDATA			#REQUIRED
+    exact		( true | false )	#REQUIRED
+    sloppynumber	CDATA			#REQUIRED
+>

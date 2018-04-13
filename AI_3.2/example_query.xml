@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE batch SYSTEM "file:/c:\batchquery.dtd">
+<batch>
+	<query network="c:\cancer.net">
+		<map search="HILL" initialization="RANDOM" maxsteps="50">
+			<id>A</id>
+			<id>E</id>
+			<evidence>
+				<id>B</id>
+				<state>Increased</state>
+			</evidence>
+		</map>
+		<exactmap timelimit="60">
+			<id>A</id>
+			<id>E</id>
+			<evidence>
+				<id>B</id>
+				<state>Not increased</state>
+			</evidence>
+		</exactmap>
+		<exactmap slop="0.5">
+			<id>A</id>
+			<id>E</id>
+			<evidence>
+				<id>B</id>
+				<state>Not increased</state>
+			</evidence>
+		</exactmap>
+		<mpe>
+			<evidence>
+				<id>B</id>
+				<state>Increased</state>
+			</evidence>
+		</mpe>
+		<probability algorithm="shenoy-shafer" prune="true">
+			<evidence>
+				<id>B</id>
+				<state>Increased</state>
+			</evidence>
+		</probability>
+		<sensitivity algorithm="zc-hugin" inequality="GTE" twoeventop="RATIO" constant="1.3">
+			<event name="1">
+				<id>D</id>
+				<state>Present</state>
+			</event>
+			<event name="2">
+				<id>E</id>
+				<state>Present</state>
+			</event>
+			<evidence>
+				<id>B</id>
+				<state>Increased</state>
+			</evidence>
+		</sensitivity>
+	</query>
+	<query network="c:\computer_power.net">
+		<mpe>
+			<evidence>
+				<id>Fan</id>
+				<state>Off</state>
+			</evidence>
+			<evidence>
+				<id>Monitor_LED</id>
+				<state>On</state>
+			</evidence>
+			<evidence>
+				<id>Disk</id>
+				<state>Bad</state>
+			</evidence>
+			<evidence>
+				<id>CPU_Cord</id>
+				<state>Ok</state>
+			</evidence>
+		</mpe>
+	</query>
+</batch>
